@@ -11,7 +11,7 @@ public class RealEstate
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; init; }
     public int UserId { get; init; }
-    public PropertyType Type { get; init; }
+    public RealEstateType Type { get; init; }
     public string City { get; init; }
     public string Address { get; init; }
     public decimal Value { get; set; }

@@ -1,6 +1,6 @@
 namespace RealEstateAgency.Model;
 
-public enum PropertyType
+public enum RealEstateType
 {
     Site,
     House,
