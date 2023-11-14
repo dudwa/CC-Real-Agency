@@ -2,9 +2,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace RealEstateAgency.Data;
 
-public class RealEstateAgencyAPIContext : DbContext
+public class RealEstateAgencyApiContext : DbContext
 {
-    public DbSet<Property> Properties { get; set; }
+    public DbSet<RealEstate> RealEstates { get; set; }
     public DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
