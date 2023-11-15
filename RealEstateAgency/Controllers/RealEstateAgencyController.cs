@@ -36,4 +36,19 @@ public class RealEstateAgencyController : ControllerBase
         return repository.GetAllByUser(userId);
     }
     
+    [HttpPost("RealEstate/Add/")]
+    public IActionResult AddRealEstate(RealEstate realEstate)
+    {
+        try
+        {
+            var repository = new RealEstateRepository();
+            repository.Add(realEstate);
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, "Database error");
+        }
+        
+    }
 }
