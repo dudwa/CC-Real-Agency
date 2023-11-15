@@ -8,7 +8,13 @@ namespace RealEstateAgency.Controllers;
 [Route("[controller]")]
 public class RealEstateAgencyController : ControllerBase
 {
-    
+    [HttpGet("GetAll/")]
+    public List<RealEstate> GetRealEstateAgencyGetAll()
+    {
+        var repository = new RealEstateRepository();
+        return repository.GetAll();
+    }
+
     [HttpGet("ForSale/")]
     public List<RealEstate> GetRealEstateAgencyForSale()
     {
