@@ -12,6 +12,7 @@ public class RealEstate
     public int Id { get; init; }
     public int UserId { get; init; }
     public RealEstateType Type { get; init; }
+    public RealEstateStatus Status { get; init; }
     public string City { get; init; }
     public string Address { get; init; }
     public decimal Value { get; set; }
@@ -19,7 +20,5 @@ public class RealEstate
     public int BuildYear { get; init; }
     public string About { get; set; }
     public DateTime SubmitDate { get; init; }
-    [JsonIgnore]
-    public bool IsActive { get; set; }
 
 }
