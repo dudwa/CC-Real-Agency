@@ -29,18 +29,18 @@ public class UserRepository : IUserRepository
         dbContext.SaveChanges();
     }
 
-    public void Delete(int id)
+    public void Delete(int userId)
     {
         using var dbContext = new RealEstateAgencyApiContext();
-        User userToRemove = new User() {Id = id};
+        User userToRemove = new User() {Id = userId};
         dbContext.Remove(userToRemove);
         dbContext.SaveChanges();
     }
 
-    public void Update(string newPassword)
+    public void Update(int userId, string newPassword)
     {
         using var dbContext = new RealEstateAgencyApiContext();
-        var userToUpdate = dbContext.Users.Find(1);
+        var userToUpdate = dbContext.Users.Find(userId);
         userToUpdate.Password = Hash(newPassword);
         dbContext.Update(userToUpdate);
         dbContext.SaveChanges();
