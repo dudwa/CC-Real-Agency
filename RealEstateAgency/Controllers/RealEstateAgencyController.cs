@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using RealEstateAgency.Data;
 using RealEstateAgency.Service.Repository;
@@ -8,32 +9,60 @@ namespace RealEstateAgency.Controllers;
 [Route("[controller]")]
 public class RealEstateAgencyController : ControllerBase
 {
-    [HttpGet("GetAll/")]
-    public List<RealEstate> GetRealEstateAgencyGetAll()
+    [HttpGet("RealEstate/GetAll/")]
+    public IActionResult GetRealEstateAgencyGetAll()
     {
-        var repository = new RealEstateRepository();
-        return repository.GetAll();
+        try
+        {
+            var repository = new RealEstateRepository();
+            return Ok(repository.GetAll());
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, "Database error");
+        }
     }
 
-    [HttpGet("ForSale/")]
-    public List<RealEstate> GetRealEstateAgencyForSale()
+    [HttpGet("RealEstate/ForSale/")]
+    public IActionResult GetRealEstateAgencyForSale()
     {
-        var repository = new RealEstateRepository();
-        return repository.GetAllForSale();
+        try
+        {
+            var repository = new RealEstateRepository();
+            return Ok(repository.GetAllForSale());
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, "Database error");
+        }
     }
 
-    [HttpGet("ToRent/")]
-    public List<RealEstate> GetRealEstateAgencyToRent()
+    [HttpGet("RealEstate/ToRent/")]
+    public IActionResult GetRealEstateAgencyToRent()
     {
-        var repository = new RealEstateRepository();
-        return repository.GetAllToRent();
+        try
+        {
+            var repository = new RealEstateRepository();
+            return Ok(repository.GetAllToRent());
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, "Database error");
+        }
     }
     
-    [HttpGet("AllByUser/{id}")]
-    public List<RealEstate> GetRealEstateAgencyByUser(int userId)
+    [HttpGet("RealEstate/ByUser/{id}")]
+    public IActionResult GetRealEstateAgencyByUser(int userId)
     {
-        var repository = new RealEstateRepository();
-        return repository.GetAllByUser(userId);
+        try
+        {
+            var repository = new RealEstateRepository();
+            return Ok(repository.GetAllByUser(userId));
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, "Database error");
+        }
     }
     
     [HttpPost("RealEstate/Add/")]
