@@ -20,6 +20,9 @@ export default function Layout() {
         <Link to='/about'>
           <button>About Us</button>
         </Link>
+        <Link to='/login'>
+          <button>Login</button>
+        </Link>
       </div>
       <Outlet />
     </div>

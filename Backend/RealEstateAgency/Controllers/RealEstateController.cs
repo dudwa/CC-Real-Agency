@@ -7,9 +7,9 @@ namespace RealEstateAgency.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class RealEstateAgencyController : ControllerBase
+public class RealEstateController : ControllerBase
 {
-    [HttpGet("RealEstate/GetAll/")]
+    [HttpGet("GetAll/")]
     public IActionResult GetRealEstateAgencyGetAll()
     {
         try
@@ -23,7 +23,7 @@ public class RealEstateAgencyController : ControllerBase
         }
     }
 
-    [HttpGet("RealEstate/ForSale/")]
+    [HttpGet("ForSale/")]
     public IActionResult GetRealEstateAgencyForSale()
     {
         try
@@ -37,7 +37,7 @@ public class RealEstateAgencyController : ControllerBase
         }
     }
 
-    [HttpGet("RealEstate/ToRent/")]
+    [HttpGet("ToRent/")]
     public IActionResult GetRealEstateAgencyToRent()
     {
         try
@@ -51,7 +51,7 @@ public class RealEstateAgencyController : ControllerBase
         }
     }
     
-    [HttpGet("RealEstate/ByUser/{id}")]
+    [HttpGet("ByUser/{id}")]
     public IActionResult GetRealEstateAgencyByUser(int userId)
     {
         try
@@ -65,7 +65,7 @@ public class RealEstateAgencyController : ControllerBase
         }
     }
     
-    [HttpPost("RealEstate/Add/")]
+    [HttpPost("Add/")]
     public IActionResult AddRealEstate(RealEstate realEstate)
     {
         try

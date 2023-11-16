@@ -7,6 +7,7 @@ import Newproperty from './pages/Newproperty';
 import Myproperties from './pages/Myproperties';
 import Faq from './pages/Faq';
 import About from './pages/About';
+import Login from './pages/Login';
 import './App.css';
 
 function App() {
@@ -38,6 +39,10 @@ function App() {
           <Route
             path='/about'
             element={<About/>}
+          />
+          <Route
+            path='/login'
+            element={<Login/>}
           />
         </Route>
       </Routes>

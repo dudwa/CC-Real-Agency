@@ -9,7 +9,7 @@ namespace RealEstateAgency.Controllers;
 [Route("[controller]")]
 public class UserController : ControllerBase
 {
-    [HttpGet("User/GetAll")]
+    [HttpGet("GetAll")]
     public IActionResult GetAllUser()
     {
         try
@@ -23,7 +23,7 @@ public class UserController : ControllerBase
         }
     }
 
-    [HttpPost("User/Register")]
+    [HttpPost("Register")]
     public IActionResult Add(User user)
     {
         try
@@ -38,7 +38,7 @@ public class UserController : ControllerBase
         }
     }
     
-    [HttpPost("User/Login")]
+    [HttpPost("Login")]
     public IActionResult Login(string userNameOrEmail, string password)
     {
         try
@@ -52,7 +52,7 @@ public class UserController : ControllerBase
         }
     }
 
-    [HttpPatch("User/{id}/PasswordChange")]
+    [HttpPatch("{id}/PasswordChange")]
     public IActionResult UserPassword(int userId, string newPassword)
     {
         try
@@ -67,7 +67,7 @@ public class UserController : ControllerBase
         }
     }
     
-    [HttpDelete("User/{id}")]
+    [HttpDelete("{id}")]
     public IActionResult Delete(int userId)
     {
         try
