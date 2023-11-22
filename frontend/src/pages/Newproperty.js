@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import InputField from '../components/InputField';
 
 export default function Newproperty() {
 
-  /*const inputFields = [
+  const inputFields = [
     {className: "type", type: "text", label: "Type"},
     {className: "cit", type: "text", label: "City"},
     {className: "address", type: "text", label: "Address"},
@@ -13,16 +14,16 @@ export default function Newproperty() {
     {className: "about", type: "textarea", label: "About"}
   ];
   
-  const formObject = inputFields.reduce((acc, cur) => {
-    acc[cur.className] = "";
-    return acc;
-  }, {});
-
   const [submit, setSubmit] = useState(false);
 
   const formSubmit = (event) => {
     event.preventDefault();
     setSubmit(true);
+
+    const formObject = inputFields.reduce((acc, cur) => {
+      acc[cur.className] = "";
+      return acc;
+    }, {});
 
     let filledFormObject = {};
     for(const key in formObject){
@@ -30,7 +31,7 @@ export default function Newproperty() {
     }
 
     console.log(filledFormObject);
-  }*/
+  }
 /*
   <label for="dog-names">Choose a dog name:</label> 
     <select name="dog-names" id="dog-names"> 
@@ -41,8 +42,8 @@ export default function Newproperty() {
     </select>*/
 
   return (
-    <div>Yeah</div>
-    /*submit ? <div>done</div> :
+
+    submit ? <div>done</div> :
     <div className="App">
       <form onSubmit={formSubmit}>
         {inputFields.map((inputfield, index) => (
@@ -55,6 +56,6 @@ export default function Newproperty() {
         ))}
         <button type="submit">Add Property</button>
       </form>
-    </div>*/
+    </div>
   );
 }
