@@ -15,7 +15,7 @@ public class RealEstate
     public RealEstateStatus Status { get; init; }
     public string City { get; init; }
     public string Address { get; init; }
-    public decimal Value { get; set; }
+    public double Value { get; set; }
     public int GroundSpace { get; init; }
     public int BuildYear { get; init; }
     public string About { get; set; }

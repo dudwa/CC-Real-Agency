@@ -60,8 +60,8 @@ namespace RealEstateAgency.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Value")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("Value")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 

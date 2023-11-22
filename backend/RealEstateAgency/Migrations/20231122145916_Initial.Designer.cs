@@ -12,8 +12,8 @@ using RealEstateAgency.Data;
 namespace RealEstateAgency.Migrations
 {
     [DbContext(typeof(RealEstateAgencyApiContext))]
-    [Migration("20231116102916_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20231122145916_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -63,8 +63,8 @@ namespace RealEstateAgency.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Value")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("Value")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 

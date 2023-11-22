@@ -10,6 +10,6 @@ public class RealEstateAgencyApiContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlServer(
-            "Server=localhost,1433;Database=RealEstateAgency;User Id=sa;Password=izagy01*;");
+            "Server=localhost,1433;Database=RealEstateAgency;User Id=sa;Password=!DbPassword12345;TrustServerCertificate=true;");
     }
 }

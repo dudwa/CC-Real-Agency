@@ -12,6 +12,9 @@ public class RealEstateController : ControllerBase
     [HttpGet("GetAll/")]
     public IActionResult GetRealEstateAgencyGetAll()
     {
+        var repository = new RealEstateRepository();
+        return Ok(repository.GetAll());
+        /*
         try
         {
             var repository = new RealEstateRepository();
@@ -21,6 +24,7 @@ public class RealEstateController : ControllerBase
         {
             return StatusCode(500, "Database error");
         }
+        */
     }
 
     [HttpGet("ForSale/")]
@@ -68,6 +72,10 @@ public class RealEstateController : ControllerBase
     [HttpPost("Add/")]
     public IActionResult AddRealEstate(RealEstate realEstate)
     {
+        var repository = new RealEstateRepository();
+        repository.Add(realEstate);
+        return Ok();
+        /*
         try
         {
             var repository = new RealEstateRepository();
@@ -78,6 +86,6 @@ public class RealEstateController : ControllerBase
         {
             return StatusCode(500, "Database error");
         }
-        
+        */
     }
 }

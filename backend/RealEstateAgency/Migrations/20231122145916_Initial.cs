@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace RealEstateAgency.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -22,7 +22,7 @@ namespace RealEstateAgency.Migrations
                     Status = table.Column<int>(type: "int", nullable: false),
                     City = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Value = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Value = table.Column<double>(type: "float", nullable: false),
                     GroundSpace = table.Column<int>(type: "int", nullable: false),
                     BuildYear = table.Column<int>(type: "int", nullable: false),
                     About = table.Column<string>(type: "nvarchar(max)", nullable: false),
