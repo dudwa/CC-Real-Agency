@@ -5,7 +5,6 @@ namespace RealEstateAgency.Data;
 public class RealEstateAgencyApiContext : DbContext
 {
     public DbSet<RealEstate> RealEstates { get; set; }
-    public DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
