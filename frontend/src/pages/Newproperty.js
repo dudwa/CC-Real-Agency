@@ -1,60 +1,78 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+//import './Newproperty.css';
 
-export default function Newproperty() {
+export default function NewProperty() {
+  const [formData, setFormData] = useState({
+    type: '',
+    city: '',
+    address: '',
+    value: '',
+    groundSpace: '',
+    buildYear: '',
+    about: '',
+  });
 
-  /*const inputFields = [
-    {className: "type", type: "text", label: "Type"},
-    {className: "cit", type: "text", label: "City"},
-    {className: "address", type: "text", label: "Address"},
-    {className: "value", type: "text", label: "Value"},
-    {className: "groundspace", type: "text", label: "Ground Space"},
-    {className: "buildyear", type: "text", label: "Build Year"},
-    {className: "about", type: "textarea", label: "About"}
-  ];
-  
-  const formObject = inputFields.reduce((acc, cur) => {
-    acc[cur.className] = "";
-    return acc;
-  }, {});
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
-  const [submit, setSubmit] = useState(false);
-
-  const formSubmit = (event) => {
-    event.preventDefault();
-    setSubmit(true);
-
-    let filledFormObject = {};
-    for(const key in formObject){
-      filledFormObject[key] = event.target[key].value;
-    }
-
-    console.log(filledFormObject);
-  }*/
-/*
-  <label for="dog-names">Choose a dog name:</label> 
-    <select name="dog-names" id="dog-names"> 
-        <option value="rigatoni">Rigatoni</option> 
-        <option value="dave">Dave</option> 
-        <option value="pumpernickel">Pumpernickel</option> 
-        <option value="reeses">Reeses</option> 
-    </select>*/
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Handle form submission logic here
+    console.log('Form Data:', formData);
+    // You can send the form data to your backend or perform any other action
+  };
 
   return (
-    <div>Yeah</div>
-    /*submit ? <div>done</div> :
-    <div className="App">
-      <form onSubmit={formSubmit}>
-        {inputFields.map((inputfield, index) => (
-          <InputField
-            key={index}
-            className={inputfield.className}
-            type={inputfield.type}
-            label={inputfield.label}
-          />
-        ))}
-        <button type="submit">Add Property</button>
+    <div className="form-container">
+      <form onSubmit={handleSubmit}>
+        <label>
+          Type:
+          <select name="type" value={formData.type} onChange={handleChange}>
+            <option value="">Select Type</option>
+            <option value="sale">Sale</option>
+            <option value="rent">Rent</option>
+          </select>
+        </label>
+
+        <label>
+          City:
+          <input type="text" name="city" value={formData.city} onChange={handleChange} />
+        </label>
+
+        <label>
+          Address:
+          <input type="text" name="address" value={formData.address} onChange={handleChange} />
+        </label>
+
+        <label>
+          Value (HUF):
+          <input type="text" name="value" value={formData.value} onChange={handleChange} />
+        </label>
+
+        <label>
+          Ground Space (m²):
+          <input type="text" name="groundSpace" value={formData.groundSpace} onChange={handleChange} />
+        </label>
+
+        <label>
+          Build Year:
+          <input type="text" name="buildYear" value={formData.buildYear} onChange={handleChange} />
+        </label>
+
+        <label>
+          About:
+          <textarea name="about" value={formData.about} onChange={handleChange} />
+        </label>
+
+        <button type="submit">Submit</button>
       </form>
-    </div>*/
+    </div>
   );
-}
+};
+
