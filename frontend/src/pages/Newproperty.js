@@ -29,19 +29,48 @@ export default function NewProperty() {
   };
 
   return (
-    <div>Yeah</div>
-    /*submit ? <div>done</div> :
-    <div className="App">
-      <form onSubmit={formSubmit}>
-        {inputFields.map((inputfield, index) => (
-          <InputField
-            key={index}
-            className={inputfield.className}
-            type={inputfield.type}
-            label={inputfield.label}
-          />
-        ))}
-        <button type="submit">Add Property</button>
+    <div className="form-container">
+      <form onSubmit={handleSubmit}>
+        <label>
+          Type:
+          <select name="type" value={formData.type} onChange={handleChange}>
+            <option value="">Select Type</option>
+            <option value="sale">Sale</option>
+            <option value="rent">Rent</option>
+          </select>
+        </label>
+
+        <label>
+          City:
+          <input type="text" name="city" value={formData.city} onChange={handleChange} />
+        </label>
+
+        <label>
+          Address:
+          <input type="text" name="address" value={formData.address} onChange={handleChange} />
+        </label>
+
+        <label>
+          Value (HUF):
+          <input type="text" name="value" value={formData.value} onChange={handleChange} />
+        </label>
+
+        <label>
+          Ground Space (m²):
+          <input type="text" name="groundSpace" value={formData.groundSpace} onChange={handleChange} />
+        </label>
+
+        <label>
+          Build Year:
+          <input type="text" name="buildYear" value={formData.buildYear} onChange={handleChange} />
+        </label>
+
+        <label>
+          About:
+          <textarea name="about" value={formData.about} onChange={handleChange} />
+        </label>
+
+        <button type="submit">Submit</button>
       </form>
     </div>
   );
