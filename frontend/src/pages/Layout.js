@@ -1,9 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Outlet, Link } from 'react-router-dom';
-import Dropdown from './Dropdown';
+import Dropdown from 'react-bootstrap/Dropdown';
+import './Layout.css';
 
 export default function Layout() {
-  const [isDropdownVisible, setDropdownVisible] = useState(false);
+  const [dropdownVisible, setDropdownVisible] = useState(false);
+
+  useEffect(() => {
+    // Open the dropdown when the component mounts
+    setDropdownVisible(true);
+  }, []);
+
+  const handleToggle = () => {
+    setDropdownVisible(!dropdownVisible);
+  };
 
 
   return (
@@ -12,8 +22,34 @@ export default function Layout() {
         <Link to='/'>
           <button>Home</button>
         </Link>
-        <button onClick={() => {setDropdownVisible(!isDropdownVisible)}}>Properties</button>
-        {isDropdownVisible && <Dropdown></Dropdown>}
+        <Dropdown show={dropdownVisible} onToggle={handleToggle}>
+          <Dropdown.Toggle variant="success" id="dropdown-basic">
+            Properties
+          </Dropdown.Toggle>
+
+          <Dropdown.Menu>
+            <Dropdown.Item>
+              <Link to='/forsale'>
+                <button>For Sale</button>
+              </Link>
+            </Dropdown.Item>
+            <Dropdown.Item>
+              <Link to='/torent'>
+                <button>To Rent</button>
+              </Link>
+            </Dropdown.Item>
+            <Dropdown.Item>
+              <Link to='/newproperty'>
+                <button>New Property</button>
+              </Link>
+            </Dropdown.Item>
+            <Dropdown.Item>
+              <Link to='/myproperties'>
+                <button>My Properties</button>
+              </Link>
+            </Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
         <Link to='/faq'>
           <button>FAQ</button>
         </Link>

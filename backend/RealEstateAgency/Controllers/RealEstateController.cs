@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using RealEstateAgency.Data;
@@ -9,25 +10,7 @@ namespace RealEstateAgency.Controllers;
 [Route("[controller]")]
 public class RealEstateController : ControllerBase
 {
-    [HttpGet("GetAll/")]
-    public IActionResult GetRealEstateAgencyGetAll()
-    {
-        var repository = new RealEstateRepository();
-        return Ok(repository.GetAll());
-        /*
-        try
-        {
-            var repository = new RealEstateRepository();
-            return Ok(repository.GetAll());
-        }
-        catch (Exception e)
-        {
-            return StatusCode(500, "Database error");
-        }
-        */
-    }
-
-    [HttpGet("ForSale/")]
+    [HttpGet("ForSale/"), Authorize]
     public IActionResult GetRealEstateAgencyForSale()
     {
         try
@@ -41,7 +24,7 @@ public class RealEstateController : ControllerBase
         }
     }
 
-    [HttpGet("ToRent/")]
+    [HttpGet("ToRent/"), Authorize]
     public IActionResult GetRealEstateAgencyToRent()
     {
         try
@@ -55,7 +38,7 @@ public class RealEstateController : ControllerBase
         }
     }
     
-    [HttpGet("ByUser/{id}")]
+    [HttpGet("ByUser/{id}"), Authorize]
     public IActionResult GetRealEstateAgencyByUser(int userId)
     {
         try
@@ -69,7 +52,7 @@ public class RealEstateController : ControllerBase
         }
     }
     
-    [HttpPost("Add/")]
+    [HttpPost("Add/"), Authorize]
     public IActionResult AddRealEstate(RealEstate realEstate)
     {
         var repository = new RealEstateRepository();

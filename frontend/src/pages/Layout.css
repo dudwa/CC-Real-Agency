@@ -1,0 +1,81 @@
+/* Add these styles to your existing CSS file */
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px; /* Increased padding for better spacing */
+  background-color: #333; /* Adjust the background color as needed */
+}
+
+.navbar a,
+.navbar button {
+  text-decoration: none;
+  background-color: transparent;
+  color: white;
+  border: none;
+  padding: 20px; /* Increased padding for larger buttons */
+  cursor: pointer;
+  font-size: 18px; /* Increased font size for better readability */
+}
+
+.navbar button:hover {
+  background-color: #555; /* Change background color on hover */
+}
+
+.navbar button {
+  cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(50% + 5px); /* Adjust the top position as needed */
+  left: 0;
+  z-index: 1000; /* Adjust the z-index as needed */
+  display: none;
+  float: left;
+  min-width: 160px;
+  text-align: left;
+  background-color: #333; /* Adjust the background color as needed */
+  border: 1px solid #777; /* Adjust the border color as needed */
+  border-radius: 4px;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu a {
+  color: white;
+  padding: 20px; /* Increased padding for larger buttons */
+  display: block;
+  text-decoration: none;
+}
+
+.dropdown-menu a:hover {
+  background-color: #555; /* Adjust the background color on hover as needed */
+}
+
+/* Adjustments for better mobile responsiveness */
+
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+  }
+
+  .dropdown-menu {
+    position: static;
+    width: 100%;
+    text-align: center;
+    display: none;
+  }
+
+  .navbar:hover .dropdown-menu {
+    display: block;
+  }
+}
