@@ -52,7 +52,17 @@ public class AuthController : ControllerBase
             return BadRequest(ModelState);
         }
 
-        return Ok(new AuthResponse(result.Email, result.UserName, result.Token));
+        // Create a new cookie options
+        var cookieOptions = new CookieOptions
+        {
+            HttpOnly = true,
+            Expires = DateTimeOffset.Now.AddHours(1),
+            Domain = "http://localhost:5173"
+        };
+
+        // Add the cookie to the response
+        Response.Cookies.Append("MyCookie", result.Token, cookieOptions);
+        return Ok(new AuthResponse(result.Email, result.UserName));
     }
 
     private void AddErrors(AuthResult result)
@@ -62,4 +72,6 @@ public class AuthController : ControllerBase
             ModelState.AddModelError(error.Key, error.Value);
         }
     }
+
+
 }
