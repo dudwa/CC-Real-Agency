@@ -1,20 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Outlet, Link } from 'react-router-dom';
-import Dropdown from 'react-bootstrap/Dropdown';
 import './Layout.css';
 
 export default function Layout() {
   const [dropdownVisible, setDropdownVisible] = useState(false);
 
-  useEffect(() => {
-    // Open the dropdown when the component mounts
-    setDropdownVisible(true);
-  }, []);
-
   const handleToggle = () => {
     setDropdownVisible(!dropdownVisible);
   };
-
 
   return (
     <div>
@@ -22,34 +15,28 @@ export default function Layout() {
         <Link to='/'>
           <button>Home</button>
         </Link>
-        <Dropdown show={dropdownVisible} onToggle={handleToggle}>
-          <Dropdown.Toggle variant="success" id="dropdown-basic">
-            Properties
-          </Dropdown.Toggle>
 
-          <Dropdown.Menu>
-            <Dropdown.Item>
-              <Link to='/forsale'>
-                <button>For Sale</button>
-              </Link>
-            </Dropdown.Item>
-            <Dropdown.Item>
-              <Link to='/torent'>
-                <button>To Rent</button>
-              </Link>
-            </Dropdown.Item>
-            <Dropdown.Item>
-              <Link to='/newproperty'>
-                <button>New Property</button>
-              </Link>
-            </Dropdown.Item>
-            <Dropdown.Item>
-              <Link to='/myproperties'>
-                <button>My Properties</button>
-              </Link>
-            </Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
+        <div className={`dropdown ${dropdownVisible ? 'show' : ''}`}>
+          <button onClick={handleToggle} className="dropdown-toggle" type="button" id="dropdown-basic">
+            Properties
+          </button>
+
+          <div className="dropdown-menu">
+            <Link to='/forsale'>
+              <button>For Sale</button>
+            </Link>
+            <Link to='/torent'>
+              <button>To Rent</button>
+            </Link>
+            <Link to='/newproperty'>
+              <button>New Property</button>
+            </Link>
+            <Link to='/myproperties'>
+              <button>My Properties</button>
+            </Link>
+          </div>
+        </div>
+
         <Link to='/faq'>
           <button>FAQ</button>
         </Link>
