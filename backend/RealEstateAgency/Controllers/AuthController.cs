@@ -43,6 +43,7 @@ public class AuthController : ControllerBase
             return BadRequest(ModelState);
         }
 
+        Console.WriteLine(request.ToString());
         var result = await _authenticationService.LoginAsync(request.Username, request.Password);
 
         if (!result.Success)

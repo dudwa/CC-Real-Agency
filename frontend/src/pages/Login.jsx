@@ -7,10 +7,10 @@ export default function Login(){
     password: '',
   });
 
-  const fetchData = () => {
+  const fetchData = async () => {
     try 
     {
-      const response = fetch(`http://localhost:5227/RealEstateAgency/Auth/login`, {
+      const response = await fetch(`http://localhost:5227/Auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -21,7 +21,7 @@ export default function Login(){
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-    } catch (error) {
+   } catch (error) {
       console.error(error);
     }
   }

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 
 export default function Register(){
   const [formData, setFormData] = useState({
@@ -11,10 +12,20 @@ export default function Register(){
     lastname: ''
   });
 
+  const [successfulRegistration, SetSuccessfulRegistration] = useState(false);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (successfulRegistration) {
+      navigate('/login');
+    }
+  }, [successfulRegistration, navigate]);
+
   const fetchData = async () => {
     try 
     {
-      const response = await fetch(`http://localhost:5227/RealEstateAgency/Auth/register`, {
+      const response = await fetch(`http://localhost:5227/Auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -25,6 +36,7 @@ export default function Register(){
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
+      SetSuccessfulRegistration(true);
     } catch (error) {
       console.error(error);
     }
@@ -41,7 +53,7 @@ export default function Register(){
   const handleSubmit = (e) => {
     e.preventDefault();
     fetchData();
-    console.log('Form submitted with data:', JSON.stringify(formData));
+    //console.log('Form submitted with data:', JSON.stringify(formData));
   };
 
   return (
@@ -114,7 +126,7 @@ export default function Register(){
             required
           />
         </div>
-        <button type="submit">Register</button>
+          <button type="submit">Register</button>
       </form>
     </div>
   );
