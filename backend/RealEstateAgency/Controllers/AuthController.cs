@@ -31,7 +31,7 @@ public class AuthController : ControllerBase
             AddErrors(result);
             return BadRequest(ModelState);
         }
-
+        
         return CreatedAtAction(nameof(Register), new RegistrationResponse(result.Email, result.UserName));
     }
     
@@ -43,7 +43,7 @@ public class AuthController : ControllerBase
             return BadRequest(ModelState);
         }
 
-        Console.WriteLine(request.ToString());
+        
         var result = await _authenticationService.LoginAsync(request.Username, request.Password);
 
         if (!result.Success)
@@ -51,20 +51,26 @@ public class AuthController : ControllerBase
             AddErrors(result);
             return BadRequest(ModelState);
         }
-
-        // Create a new cookie options
-        var cookieOptions = new CookieOptions
+        Response.Cookies.Append("access_token", result.Token, new CookieOptions
         {
             HttpOnly = true,
-            Expires = DateTimeOffset.Now.AddHours(1),
-            Domain = "http://localhost:5173"
-        };
-
-        // Add the cookie to the response
-        Response.Cookies.Append("MyCookie", result.Token, cookieOptions);
+            Expires = DateTime.UtcNow.AddHours(1)
+        });
         return Ok(new AuthResponse(result.Email, result.UserName));
     }
-
+    
+    [HttpPost("Logout")]
+    public async Task<ActionResult<bool>> Logout()
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        
+        Response.Cookies.Delete("access_token");
+        
+        return Ok(true);
+    }
     private void AddErrors(AuthResult result)
     {
         foreach (var error in result.ErrorMessages)

@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -10,9 +11,25 @@ namespace RealEstateAgency.Controllers;
 [Route("[controller]")]
 public class RealEstateController : ControllerBase
 {
-    [HttpGet("ForSale/"), Authorize]
+    [HttpGet("ForSale/")/*, Authorize*/]
     public IActionResult GetRealEstateAgencyForSale()
     {
+        foreach (var cookie in Request.Cookies)
+        {
+            Console.WriteLine($"{cookie.Key}:{cookie.Value}");
+        }
+        
+        foreach (var claim in User.Claims)
+        {
+            Console.WriteLine($"{claim.Type}: {claim.Value}");
+        }
+        
+        /*
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        var userName = User.FindFirst(ClaimTypes.Name)?.Value;
+
+        Console.WriteLine($"Authenticated User: {userId}, {userName}");
+        */
         try
         {
             var repository = new RealEstateRepository();

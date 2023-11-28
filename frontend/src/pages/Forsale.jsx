@@ -9,8 +9,9 @@ export default function Forsale() {
       const response = await fetch(`http://localhost:5227/RealEstate/ForSale`, {
         method: 'GET',
         headers: {
-          'Content-Type': 'application/json',
-        }
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include'
       });
       console.log(response.status)
       if (!response.ok) {
