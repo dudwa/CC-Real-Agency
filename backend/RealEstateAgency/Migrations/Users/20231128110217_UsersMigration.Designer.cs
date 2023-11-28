@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace RealEstateAgency.Migrations.Users
 {
     [DbContext(typeof(UsersContext))]
-    [Migration("20231123155950_IdentityUpdate")]
-    partial class IdentityUpdate
+    [Migration("20231128110217_UsersMigration")]
+    partial class UsersMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
