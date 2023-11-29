@@ -11,7 +11,7 @@ namespace RealEstateAgency.Controllers;
 [Route("[controller]")]
 public class RealEstateController : ControllerBase
 {
-    [HttpGet("ForSale/")/*, Authorize*/]
+    [HttpGet("ForSale/"), Authorize]
     public IActionResult GetRealEstateAgencyForSale()
     {
         foreach (var cookie in Request.Cookies)

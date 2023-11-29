@@ -42,7 +42,6 @@ public class AuthController : ControllerBase
         {
             return BadRequest(ModelState);
         }
-
         
         var result = await _authenticationService.LoginAsync(request.Username, request.Password);
 
@@ -51,12 +50,12 @@ public class AuthController : ControllerBase
             AddErrors(result);
             return BadRequest(ModelState);
         }
-        Response.Cookies.Append("access_token", result.Token, new CookieOptions
+        /*Response.Cookies.Append("access_token", result.Token, new CookieOptions
         {
-            HttpOnly = true,
+            //HttpOnly = true,
             Expires = DateTime.UtcNow.AddHours(1)
-        });
-        return Ok(new AuthResponse(result.Email, result.UserName));
+        });*/
+        return Ok(new AuthResponse(result.Email, result.UserName, result.Token));
     }
     
     [HttpPost("Logout")]

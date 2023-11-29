@@ -1,3 +1,3 @@
 ﻿namespace RealEstateAgency.Service.Authentication;
 
-public record AuthResponse(string Email, string UserName);
+public record AuthResponse(string Email, string UserName, string Token);

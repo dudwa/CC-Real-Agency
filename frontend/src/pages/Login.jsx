@@ -22,7 +22,11 @@ export default function Login(){
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-   } catch (error) {
+      const data = await response.json();
+      const token =  data["token"];
+      console.log(token)
+      document.cookie = token;
+    } catch (error) {
       console.error(error);
     }
   }
