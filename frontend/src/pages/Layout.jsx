@@ -1,12 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Outlet, Link } from 'react-router-dom';
 import './Layout.css';
 
 export default function Layout() {
   const [dropdownVisible, setDropdownVisible] = useState(false);
+  const [authenticated, setAuthenticated] = useState(false);
+
+  useEffect(() => {
+    
+  }, [authenticated]);
 
   const handleToggle = () => {
     setDropdownVisible(!dropdownVisible);
+  };
+
+  function getUserFromCookie()
+  {
+    const tokenCookie = document.cookie
+    .split('; ')
+    .find(cookie => cookie.startsWith('token='));
+
+    // Extract the value after the equal sign
+    return tokenCookie ? tokenCookie.split('=')[1] : null;
+  }
+
+  const handleLogout = () =>
+  {
+    setAuthenticated(false);
+    clearCookie('token');
+    clearCookie('role');
+    clearCookie('username');
+  };
+
+  function clearCookie(name) {
+    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
   };
 
   return (
@@ -43,9 +70,11 @@ export default function Layout() {
         <Link to='/about'>
           <button>About Us</button>
         </Link>
-        <Link to='/login'>
-          <button>Login</button>
-        </Link>
+        {authenticated
+          ? <button onClick={handleLogout}>Logout</button>
+          : <Link to='/login'>
+              <button>Login</button>
+            </Link>}
       </div>
       <Outlet />
     </div>
