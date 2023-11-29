@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using RealEstateAgency.Service.Authentication.IdentityExtension;
 
-public class UsersContext : IdentityUserContext<ApplicationUser>
+public class UsersContext : IdentityDbContext<ApplicationUser, IdentityRole, string>
 {
     public UsersContext (DbContextOptions<UsersContext> options) : base(options)
     {

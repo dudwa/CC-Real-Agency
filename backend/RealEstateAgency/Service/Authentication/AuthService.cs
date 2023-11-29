@@ -15,23 +15,24 @@ public class AuthService : IAuthService
         _tokenService = tokenService;
     }
 
-    public async Task<AuthResult> RegisterAsync(string email, string username, string password, string phonenumber, string firstname, string lastname)
+    public async Task<AuthResult> RegisterAsync(string email, string username, string password, string phonenumber, string firstname, string lastname, string role)
     {
-        var result = await _userManager.CreateAsync(
-            new ApplicationUser
-            {
-                UserName = username, 
-                Email = email,
-                PhoneNumber = phonenumber,
-                Firstname = firstname,
-                Lastname = lastname
-            }, password);
+        var user = new ApplicationUser
+        {
+            UserName = username, 
+            Email = email,
+            PhoneNumber = phonenumber,
+            Firstname = firstname,
+            Lastname = lastname
+        };
+        
+        var result = await _userManager.CreateAsync(user, password);
 
         if (!result.Succeeded)
         {
             return FailedRegistration(result, email, username);
         }
-
+        await _userManager.AddToRoleAsync(user, role);
         return new AuthResult(true, email, username, "");
     }
 
@@ -62,10 +63,14 @@ public class AuthService : IAuthService
             return InvalidPassword(username, managedUser.UserName);
         }
 
-        var accessToken = _tokenService.CreateToken(managedUser);
+
+        // get the role and pass it to the TokenService
+        var roles = await _userManager.GetRolesAsync(managedUser);
+        var accessToken = _tokenService.CreateToken(managedUser, roles[0]);
 
         return new AuthResult(true, managedUser.Email, managedUser.UserName, accessToken);
     }
+
 
     private static AuthResult InvalidUsername(string username)
     {

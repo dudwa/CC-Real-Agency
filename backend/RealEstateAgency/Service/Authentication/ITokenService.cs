@@ -4,5 +4,5 @@ namespace RealEstateAgency.Service.Authentication;
 
 public interface ITokenService
 {
-    public string CreateToken(ApplicationUser user);
+    string CreateToken(ApplicationUser user, string role);
 }
