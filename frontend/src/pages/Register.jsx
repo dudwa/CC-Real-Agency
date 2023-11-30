@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import '../App.css';
 
 export default function Register(){
   const [formData, setFormData] = useState({
@@ -57,77 +57,65 @@ export default function Register(){
   };
 
   return (
-    <div>
-      <h2>Registration</h2>
-      <form onSubmit={handleSubmit}>
-      <div>
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="username">Username:</label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="phonenumber">Phone number:</label>
-          <input
-            type="text"
-            id="phonenumber"
-            name="phonenumber"
-            value={formData.phonenumber}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="firstname">First name:</label>
-          <input
-            type="text"
-            id="firstname"
-            name="firstname"
-            value={formData.firstname}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="lastname">Last name:</label>
-          <input
-            type="text"
-            id="lastname"
-            name="lastname"
-            value={formData.lastname}
-            onChange={handleChange}
-            required
-          />
-        </div>
-          <button type="submit">Register</button>
+    <div className="register-container">
+      <h2 className="register-header">Registration</h2>
+      <form className="register-form" onSubmit={handleSubmit}>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="Email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="text"
+          id="username"
+          name="username"
+          placeholder="Username"
+          value={formData.username}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Password"
+          value={formData.password}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="text"
+          id="phonenumber"
+          name="phonenumber"
+          placeholder="Phone number"
+          value={formData.phonenumber}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="text"
+          id="firstname"
+          name="firstname"
+          placeholder="First name"
+          value={formData.firstname}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="text"
+          id="lastname"
+          name="lastname"
+          placeholder="Last name"
+          value={formData.lastname}
+          onChange={handleChange}
+          required
+        />
+        <button type="submit">Register</button>
       </form>
     </div>
   );
-};
+}

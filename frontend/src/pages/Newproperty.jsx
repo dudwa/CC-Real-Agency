@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-//import './Newproperty.css';
 
 export default function NewProperty() {
   const [formData, setFormData] = useState({

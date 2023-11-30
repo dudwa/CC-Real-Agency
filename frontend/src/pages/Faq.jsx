@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
+import '../App.css';
 
 export default function Faq({authenticated}) {
 
@@ -84,35 +85,54 @@ export default function Faq({authenticated}) {
   };
 
   return (
-    <div>
-      {data ? data.map(qna => 
-        <div key={qna["id"]}><h3>{qna["question"]}</h3> <h3>{qna["answer"]}</h3> </div>) : "hello" /*loading logo*/}
-      {isAdmin && 
-      <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="question">Question:</label>
-        <input
-          type="text"
-          id="question"
-          name="question"
-          value={qna.question}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div>
-        <label htmlFor="answer">Answer:</label>
-        <input
-          type="text"
-          id="answer"
-          name="answer"
-          value={qna.answer}
-          onChange={handleChange}
-          required
-        />
-      </div>
-        <button type="submit">Add</button>
-    </form>}
+    <div className="faq-container">
+      {data ? (
+        <table className="faq-table">
+          <thead>
+            <tr>
+              <th>Question</th>
+              <th>Answer</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((qna) => (
+              <tr key={qna.id}>
+                <td>{qna.question}</td>
+                <td>{qna.answer}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        'Loading...'
+      )}
+      {isAdmin && (
+        <form className="faq-form" onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor="question">Question:</label>
+            <input
+              type="text"
+              id="question"
+              name="question"
+              value={qna.question}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="answer">Answer:</label>
+            <input
+              type="text"
+              id="answer"
+              name="answer"
+              value={qna.answer}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <button type="submit">Add</button>
+        </form>
+      )}
     </div>
   );
 }

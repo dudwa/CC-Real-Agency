@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Outlet, Link, Navigate, useNavigate } from 'react-router-dom';
-import './Layout.css';
+import '../App.css';
 import Cookies from 'js-cookie';
 
 export default function Layout({authenticated, setAuthenticated}) {

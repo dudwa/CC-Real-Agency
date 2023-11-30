@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import Cookies from 'js-cookie';
+import '../App.css';
 
 export default function Login({setAuthenticated}){
   
@@ -65,36 +66,36 @@ export default function Login({setAuthenticated}){
   };
 
   return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
+    <div className="login-container">
+      <h2 className="login-header">Login</h2>
+      <form className="login-form" onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="username">Username:</label>
           <input
             type="text"
             id="username"
             name="username"
+            placeholder="Username"
             value={formData.username}
             onChange={handleChange}
             required
           />
         </div>
         <div>
-          <label htmlFor="password">Password:</label>
           <input
             type="password"
             id="password"
             name="password"
+            placeholder="Password"
             value={formData.password}
             onChange={handleChange}
             required
           />
         </div>
-        <Link to='/register'>
+        <Link to='/register' className="registration-link">
           <button>Registration</button>
         </Link>
         <button type="submit">Login</button>
       </form>
     </div>
   );
-};
+}
