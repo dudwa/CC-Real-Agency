@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace RealEstateAgency.Data;
 
-public class RealEstateAgencyApiContext : DbContext
+public class RealEstateAgencyContext : DbContext
 {
     public DbSet<RealEstate> RealEstates { get; set; }
 

@@ -11,7 +11,7 @@ using RealEstateAgency.Data;
 
 namespace RealEstateAgency.Migrations
 {
-    [DbContext(typeof(RealEstateAgencyApiContext))]
+    [DbContext(typeof(RealEstateAgencyContext))]
     [Migration("20231128110130_RealEstateAgencyMigration")]
     partial class RealEstateAgencyMigration
     {

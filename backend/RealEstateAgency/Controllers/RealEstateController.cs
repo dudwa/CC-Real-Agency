@@ -11,7 +11,7 @@ namespace RealEstateAgency.Controllers;
 [Route("[controller]")]
 public class RealEstateController : ControllerBase
 {
-    [HttpGet("ForSale/"), Authorize]
+    [HttpGet("forsale/"), Authorize]
     public IActionResult GetRealEstateAgencyForSale()
     {
         foreach (var cookie in Request.Cookies)
@@ -41,7 +41,7 @@ public class RealEstateController : ControllerBase
         }
     }
 
-    [HttpGet("ToRent/"), Authorize]
+    [HttpGet("torent/"), Authorize]
     public IActionResult GetRealEstateAgencyToRent()
     {
         try
@@ -55,7 +55,7 @@ public class RealEstateController : ControllerBase
         }
     }
     
-    [HttpGet("ByUser/{id}"), Authorize]
+    [HttpGet("byuser/{id}"), Authorize]
     public IActionResult GetRealEstateAgencyByUser(int userId)
     {
         try
@@ -69,13 +69,9 @@ public class RealEstateController : ControllerBase
         }
     }
     
-    [HttpPost("Add/"), Authorize]
+    [HttpPost("add/"), Authorize]
     public IActionResult AddRealEstate(RealEstate realEstate)
     {
-        var repository = new RealEstateRepository();
-        repository.Add(realEstate);
-        return Ok();
-        /*
         try
         {
             var repository = new RealEstateRepository();
@@ -86,6 +82,5 @@ public class RealEstateController : ControllerBase
         {
             return StatusCode(500, "Database error");
         }
-        */
     }
 }

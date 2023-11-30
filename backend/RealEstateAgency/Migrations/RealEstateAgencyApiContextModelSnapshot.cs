@@ -10,7 +10,7 @@ using RealEstateAgency.Data;
 
 namespace RealEstateAgency.Migrations
 {
-    [DbContext(typeof(RealEstateAgencyApiContext))]
+    [DbContext(typeof(RealEstateAgencyContext))]
     partial class RealEstateAgencyApiContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
