@@ -15,7 +15,7 @@ public class AuthController : ControllerBase
         _authenticationService = authenticationService;
     }
 
-    [HttpPost("Register")]
+    [HttpPost("register")]
     public async Task<ActionResult<RegistrationResponse>> Register(RegistrationRequest request)
     {
         if (!ModelState.IsValid)
@@ -35,7 +35,7 @@ public class AuthController : ControllerBase
         return CreatedAtAction(nameof(Register), new RegistrationResponse(result.Email, result.UserName));
     }
     
-    [HttpPost("Login")]
+    [HttpPost("login")]
     public async Task<ActionResult<AuthResponse>> Authenticate([FromBody] AuthRequest request)
     {
         if (!ModelState.IsValid)
@@ -58,18 +58,6 @@ public class AuthController : ControllerBase
         return Ok(new AuthResponse(result.Email, result.UserName, result.Token));
     }
     
-    [HttpPost("Logout")]
-    public async Task<ActionResult<bool>> Logout()
-    {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
-        
-        Response.Cookies.Delete("access_token");
-        
-        return Ok(true);
-    }
     private void AddErrors(AuthResult result)
     {
         foreach (var error in result.ErrorMessages)
