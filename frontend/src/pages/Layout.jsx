@@ -2,27 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Outlet, Link } from 'react-router-dom';
 import './Layout.css';
 
-export default function Layout() {
-  const [dropdownVisible, setDropdownVisible] = useState(false);
-  const [authenticated, setAuthenticated] = useState(false);
+export default function Layout({authenticated, setAuthenticated}) {
 
-  useEffect(() => {
-    
-  }, [authenticated]);
+  const [dropdownVisible, setDropdownVisible] = useState(false);
 
   const handleToggle = () => {
     setDropdownVisible(!dropdownVisible);
   };
-
-  function getUserFromCookie()
-  {
-    const tokenCookie = document.cookie
-    .split('; ')
-    .find(cookie => cookie.startsWith('token='));
-
-    // Extract the value after the equal sign
-    return tokenCookie ? tokenCookie.split('=')[1] : null;
-  }
 
   const handleLogout = () =>
   {

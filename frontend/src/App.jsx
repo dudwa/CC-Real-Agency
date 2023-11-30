@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useState } from 'react';
 import Home from './pages/Home';
 import Layout from './pages/Layout';
 import Forsale from './pages/Forsale';
@@ -12,10 +13,13 @@ import Register from './pages/Register';
 import './App.css';
 
 function App() {
+
+  const [authenticated, setAuthenticated] = useState(false);
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Layout/>}>
+        <Route path='/' element={<Layout authenticated={authenticated} setAuthenticated={setAuthenticated} />}>
           <Route index element={<Home />} />
           <Route
             path='/forsale'
@@ -43,7 +47,7 @@ function App() {
           />
           <Route
             path='/login'
-            element={<Login/>}
+            element={<Login setAuthenticated={setAuthenticated}/>}
           />
           <Route
             path='/register'

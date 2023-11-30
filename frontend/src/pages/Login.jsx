@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 
-export default function Login(){
+export default function Login({setAuthenticated}){
+  
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -29,10 +30,22 @@ export default function Login(){
       const token =  data["token"];
       // console.log(token)
       setCookie(token);
+      setAuthenticated(true);
+      getUserFromCookie();
       navigate('/');
     } catch (error) {
       console.error(error);
     }
+  }
+
+  function getUserFromCookie()
+  {
+    const tokenCookie = document.cookie
+    .split('; ')
+    .find(cookie => cookie.startsWith('token='));
+
+    // Extract the value after the equal sign
+    return tokenCookie ? tokenCookie.split('=')[1] : null;
   }
 
   function setCookie(token) {
