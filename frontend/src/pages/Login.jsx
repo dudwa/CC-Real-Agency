@@ -28,7 +28,6 @@ export default function Login({setAuthenticated}){
       }
       const data = await response.json();
       const token =  data["token"];
-      console.log(token)
       setCookie(token);
       setAuthenticated(true);
       navigate('/');
