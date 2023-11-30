@@ -15,23 +15,25 @@ public class AuthService : IAuthService
         _tokenService = tokenService;
     }
 
-    public async Task<AuthResult> RegisterAsync(string email, string username, string password, string phonenumber, string firstname, string lastname, string role)
+    public async Task<AuthResult> RegisterAsync(string email, string username, string password, string phonenumber,
+        string firstname, string lastname, string role)
     {
         var user = new ApplicationUser
         {
-            UserName = username, 
+            UserName = username,
             Email = email,
             PhoneNumber = phonenumber,
             Firstname = firstname,
             Lastname = lastname
         };
-        
+
         var result = await _userManager.CreateAsync(user, password);
 
         if (!result.Succeeded)
         {
             return FailedRegistration(result, email, username);
         }
+
         await _userManager.AddToRoleAsync(user, role);
         return new AuthResult(true, email, username, "");
     }
@@ -47,7 +49,7 @@ public class AuthService : IAuthService
 
         return authResult;
     }
-    
+
     public async Task<AuthResult> LoginAsync(string username, string password)
     {
         var managedUser = await _userManager.FindByNameAsync(username);
@@ -74,7 +76,7 @@ public class AuthService : IAuthService
 
     private static AuthResult InvalidUsername(string username)
     {
-        var result = new AuthResult(false, "",username,  "");
+        var result = new AuthResult(false, "", username, "");
         result.ErrorMessages.Add("Bad credentials", "Invalid username");
         return result;
     }

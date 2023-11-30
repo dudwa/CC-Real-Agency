@@ -12,7 +12,7 @@ public class TokenService : ITokenService
 {
     private const int ExpirationMinutes = 30;
 
-    public string CreateToken(ApplicationUser user, string role )
+    public string CreateToken(ApplicationUser user, string role)
     {
         var expiration = DateTime.UtcNow.AddMinutes(ExpirationMinutes);
         var token = CreateJwtToken(
@@ -47,12 +47,12 @@ public class TokenService : ITokenService
                 new Claim(ClaimTypes.Name, user.UserName),
                 new Claim(ClaimTypes.Email, user.Email)
             };
-            
+
             if (role != null)
             {
                 claims.Add(new Claim(ClaimTypes.Role, role));
             }
-            
+
             return claims;
         }
         catch (Exception e)

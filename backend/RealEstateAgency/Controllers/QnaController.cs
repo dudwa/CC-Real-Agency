@@ -1,6 +1,4 @@
-using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using RealEstateAgency.Data;
 using RealEstateAgency.Service.Repository;
@@ -28,11 +26,6 @@ public class QnaController : ControllerBase
     [HttpPost("add/"), Authorize(Roles = "Admin")]
     public IActionResult AddQna(Qna qna)
     {
-        /*foreach (var userClaim in User.Claims)
-        {
-            Console.WriteLine(userClaim);
-        }*/
-
         try
         {
             var repository = new QnaRepository();

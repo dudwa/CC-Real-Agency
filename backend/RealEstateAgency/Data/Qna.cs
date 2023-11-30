@@ -8,6 +8,7 @@ public class Qna
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; init; }
+
     public string Question { get; init; }
     public string Answer { get; init; }
 }

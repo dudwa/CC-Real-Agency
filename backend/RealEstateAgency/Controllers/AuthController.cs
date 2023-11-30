@@ -23,18 +23,18 @@ public class AuthController : ControllerBase
             return BadRequest(ModelState);
         }
 
-        Console.WriteLine(request.ToString());
-        var result = await _authenticationService.RegisterAsync(request.Email, request.Username, request.Password, request.PhoneNumber, request.Firstname, request.Lastname, "User");
+        var result = await _authenticationService.RegisterAsync(request.Email, request.Username, request.Password,
+            request.PhoneNumber, request.Firstname, request.Lastname, "User");
 
         if (!result.Success)
         {
             AddErrors(result);
             return BadRequest(ModelState);
         }
-        
+
         return CreatedAtAction(nameof(Register), new RegistrationResponse(result.Email, result.UserName));
     }
-    
+
     [HttpPost("login")]
     public async Task<ActionResult<AuthResponse>> Authenticate([FromBody] AuthRequest request)
     {
@@ -42,7 +42,7 @@ public class AuthController : ControllerBase
         {
             return BadRequest(ModelState);
         }
-        
+
         var result = await _authenticationService.LoginAsync(request.Username, request.Password);
 
         if (!result.Success)
@@ -50,6 +50,7 @@ public class AuthController : ControllerBase
             AddErrors(result);
             return BadRequest(ModelState);
         }
+
         /*Response.Cookies.Append("access_token", result.Token, new CookieOptions
         {
             //HttpOnly = true,
@@ -57,7 +58,7 @@ public class AuthController : ControllerBase
         });*/
         return Ok(new AuthResponse(result.Email, result.UserName, result.Token));
     }
-    
+
     private void AddErrors(AuthResult result)
     {
         foreach (var error in result.ErrorMessages)
@@ -65,6 +66,4 @@ public class AuthController : ControllerBase
             ModelState.AddModelError(error.Key, error.Value);
         }
     }
-
-
 }

@@ -5,13 +5,12 @@ namespace RealEstateAgency.Service.Repository;
 
 public class RealEstateRepository : IRealEstateRepository
 {
-    
     public List<RealEstate> GetAll()
     {
         using var dbContext = new RealEstateAgencyContext();
         return dbContext.RealEstates.ToList();
     }
-    
+
     public List<RealEstate> GetAllForSale()
     {
         using var dbContext = new RealEstateAgencyContext();

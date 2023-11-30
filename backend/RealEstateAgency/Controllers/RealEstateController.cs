@@ -14,22 +14,6 @@ public class RealEstateController : ControllerBase
     [HttpGet("forsale/"), Authorize]
     public IActionResult GetRealEstateAgencyForSale()
     {
-        foreach (var cookie in Request.Cookies)
-        {
-            Console.WriteLine($"{cookie.Key}:{cookie.Value}");
-        }
-        
-        foreach (var claim in User.Claims)
-        {
-            Console.WriteLine($"{claim.Type}: {claim.Value}");
-        }
-        
-        /*
-        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        var userName = User.FindFirst(ClaimTypes.Name)?.Value;
-
-        Console.WriteLine($"Authenticated User: {userId}, {userName}");
-        */
         try
         {
             var repository = new RealEstateRepository();
@@ -54,7 +38,7 @@ public class RealEstateController : ControllerBase
             return StatusCode(500, "Database error");
         }
     }
-    
+
     [HttpGet("byuser/{id}"), Authorize]
     public IActionResult GetRealEstateAgencyByUser(int userId)
     {
@@ -68,7 +52,7 @@ public class RealEstateController : ControllerBase
             return StatusCode(500, "Database error");
         }
     }
-    
+
     [HttpPost("add/"), Authorize]
     public IActionResult AddRealEstate(RealEstate realEstate)
     {
