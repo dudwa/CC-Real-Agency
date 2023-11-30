@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet, Link, Navigate, useNavigate } from 'react-router-dom';
 import './Layout.css';
+import Cookies from 'js-cookie';
 
 export default function Layout({authenticated, setAuthenticated}) {
 
   const [dropdownVisible, setDropdownVisible] = useState(false);
+  const navigate = useNavigate;
 
   const handleToggle = () => {
     setDropdownVisible(!dropdownVisible);
@@ -12,15 +14,14 @@ export default function Layout({authenticated, setAuthenticated}) {
 
   const handleLogout = () =>
   {
+    Cookies.remove('token');
+    Cookies.remove('role');
+    Cookies.remove('username');
     setAuthenticated(false);
-    clearCookie('token');
-    clearCookie('role');
-    clearCookie('username');
+    //navigate('/');
   };
 
-  function clearCookie(name) {
-    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
-  };
+
 
   return (
     <div>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
+import Cookies from 'js-cookie';
 
 export default function Login({setAuthenticated}){
   
@@ -19,7 +20,6 @@ export default function Login({setAuthenticated}){
         headers: {
           'Content-Type': 'application/json',
         },
-        credentials: 'include',
         body: JSON.stringify(formData),
       });
     
@@ -28,24 +28,13 @@ export default function Login({setAuthenticated}){
       }
       const data = await response.json();
       const token =  data["token"];
-      // console.log(token)
+      console.log(token)
       setCookie(token);
       setAuthenticated(true);
-      getUserFromCookie();
       navigate('/');
     } catch (error) {
       console.error(error);
     }
-  }
-
-  function getUserFromCookie()
-  {
-    const tokenCookie = document.cookie
-    .split('; ')
-    .find(cookie => cookie.startsWith('token='));
-
-    // Extract the value after the equal sign
-    return tokenCookie ? tokenCookie.split('=')[1] : null;
   }
 
   function setCookie(token) {
@@ -73,7 +62,7 @@ export default function Login({setAuthenticated}){
   const handleSubmit = (e) => {
     e.preventDefault();
     fetchData();
-    console.log('Form submitted with data:', formData);
+    //console.log('Form submitted with data:', formData);
   };
 
   return (

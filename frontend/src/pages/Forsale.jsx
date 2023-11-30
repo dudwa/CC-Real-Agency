@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 export default function Forsale() {
 
@@ -23,13 +24,7 @@ export default function Forsale() {
 
   function getTokenFromCookie()
   {
-    const tokenCookie = document.cookie
-    .split('; ')
-    .find(cookie => cookie.startsWith('token='));
-
-    // Extract the value after the equal sign
-    return tokenCookie ? tokenCookie.split('=')[1] : null;
-
+    return Cookies.get("token");
   }
 
   return (
