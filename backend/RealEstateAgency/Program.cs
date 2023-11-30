@@ -42,8 +42,9 @@ builder.Services.AddSwaggerGen(option =>
         }
     });
 });
-builder.Services.AddDbContext<RealEstateAgencyApiContext>();
+builder.Services.AddDbContext<RealEstateAgencyContext>();
 builder.Services.AddDbContext<UsersContext>();
+builder.Services.AddDbContext<QnaContext>();
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
