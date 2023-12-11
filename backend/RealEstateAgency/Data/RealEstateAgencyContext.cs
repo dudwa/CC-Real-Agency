@@ -5,10 +5,9 @@ namespace RealEstateAgency.Data;
 public class RealEstateAgencyContext : DbContext
 {
     public DbSet<RealEstate> RealEstates { get; set; }
+    public DbSet<Qna> Qnas { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    public RealEstateAgencyContext(DbContextOptions<RealEstateAgencyContext> options) : base(options)
     {
-        optionsBuilder.UseSqlServer(
-            "Server=localhost,1433;Database=RealEstateAgency;User Id=sa;Password=!DbPassword12345;TrustServerCertificate=true;");
     }
 }

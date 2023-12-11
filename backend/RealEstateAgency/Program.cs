@@ -1,7 +1,9 @@
+using System.Net.Mime;
 using System.Text;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using RealEstateAgency.Data;
@@ -40,9 +42,11 @@ builder.Services.AddSwaggerGen(option =>
         }
     });
 });
-builder.Services.AddDbContext<RealEstateAgencyContext>();
-builder.Services.AddDbContext<UsersContext>();
-builder.Services.AddDbContext<QnaContext>();
+builder.Services.AddDbContext<RealEstateAgencyContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("realEstateAgencyDb")));
+builder.Services.AddDbContext<UsersContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("realEstateAgencyDb")));
+
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
