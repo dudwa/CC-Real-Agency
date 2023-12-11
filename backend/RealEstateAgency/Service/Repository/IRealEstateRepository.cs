@@ -10,4 +10,6 @@ public interface IRealEstateRepository
     void Add(RealEstate realEstate);
     void Delete(int id);
     void Update(RealEstate realEstate);
+
+    public List<RealEstate> GetAllByUser(int userId);
 }

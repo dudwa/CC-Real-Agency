@@ -7,12 +7,10 @@ using Microsoft.OpenApi.Models;
 using RealEstateAgency.Data;
 using RealEstateAgency.Service.Authentication;
 using RealEstateAgency.Service.Authentication.IdentityExtension;
+using RealEstateAgency.Service.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
-builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(option =>
@@ -83,9 +81,14 @@ builder.Services
     options.ExpireTimeSpan = TimeSpan.FromHours(1);
 });*/
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IQnaRepository, QnaRepository>();
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IRealEstateRepository, RealEstateRepository>();
 //builder.Services.AddScoped<UserManager<ApplicationUser>>();
 builder.Services.AddLogging();
+
+builder.Services.AddControllers();
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigins",

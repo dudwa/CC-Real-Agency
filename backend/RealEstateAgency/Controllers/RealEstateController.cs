@@ -11,13 +11,19 @@ namespace RealEstateAgency.Controllers;
 [Route("[controller]")]
 public class RealEstateController : ControllerBase
 {
+    private readonly IRealEstateRepository _realEstateRepository;
+
+    public RealEstateController(IRealEstateRepository realEstateRepository)
+    {
+        _realEstateRepository = realEstateRepository;
+    }
+
     [HttpGet("forsale/"), Authorize]
     public IActionResult GetRealEstateAgencyForSale()
     {
         try
         {
-            var repository = new RealEstateRepository();
-            return Ok(repository.GetAllForSale());
+            return Ok(_realEstateRepository.GetAllForSale());
         }
         catch (Exception e)
         {
@@ -30,8 +36,7 @@ public class RealEstateController : ControllerBase
     {
         try
         {
-            var repository = new RealEstateRepository();
-            return Ok(repository.GetAllToRent());
+            return Ok(_realEstateRepository.GetAllToRent());
         }
         catch (Exception e)
         {
@@ -44,8 +49,7 @@ public class RealEstateController : ControllerBase
     {
         try
         {
-            var repository = new RealEstateRepository();
-            return Ok(repository.GetAllByUser(userId));
+            return Ok(_realEstateRepository.GetAllByUser(userId));
         }
         catch (Exception e)
         {
@@ -58,8 +62,7 @@ public class RealEstateController : ControllerBase
     {
         try
         {
-            var repository = new RealEstateRepository();
-            repository.Add(realEstate);
+            _realEstateRepository.Add(realEstate);
             return Ok();
         }
         catch (Exception e)
