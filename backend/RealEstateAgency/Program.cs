@@ -125,6 +125,8 @@ app.MapControllers();
 
 AddRoles();
 
+Logging(app);
+
 app.Run();
 
 void AddRoles()
@@ -151,4 +153,35 @@ async Task CreateUserRole(RoleManager<IdentityRole> roleManager)
 {
     await roleManager.CreateAsync(
         new IdentityRole("User")); //The role string should better be stored as a constant or a value in appsettings
+}
+
+void Logging(WebApplication app)
+{
+    app.UseExceptionHandler(exceptionHandlerApp =>
+    {
+        exceptionHandlerApp.Run(async context =>
+        {
+            context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+
+            // using static System.Net.Mime.MediaTypeNames;
+            context.Response.ContentType = MediaTypeNames.Text.Plain;
+
+            await context.Response.WriteAsync("An exception was thrown.");
+
+            var exceptionHandlerPathFeature =
+                context.Features.Get<IExceptionHandlerPathFeature>();
+
+            if (exceptionHandlerPathFeature?.Error is FileNotFoundException)
+            {
+                await context.Response.WriteAsync("The file was not found.");
+            }
+
+            if (exceptionHandlerPathFeature?.Path == "/")
+            {
+                await context.Response.WriteAsync(" Page: Home.");
+            }
+        });
+    });
+
+    app.UseHsts();
 }
