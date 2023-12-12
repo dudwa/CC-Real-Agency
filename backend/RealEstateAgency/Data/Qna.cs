@@ -11,4 +11,11 @@ public class Qna
 
     public string Question { get; init; }
     public string Answer { get; init; }
+
+    public Qna(int id, string question, string answer)
+    {
+        Id = id;
+        Question = question;
+        Answer = answer;
+    }
 }
