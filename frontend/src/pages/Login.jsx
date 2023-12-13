@@ -16,7 +16,8 @@ export default function Login({setAuthenticated}){
   const fetchData = async () => {
     try 
     {
-      const response = await fetch(`http://localhost:5227/Auth/login`, {
+      const baseUrl = import.meta.env.VITE_BASE_URL;
+      const response = await fetch(`${baseUrl}/Auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

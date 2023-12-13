@@ -44,7 +44,8 @@ export default function Faq({authenticated}) {
   const addQna = async () =>{
     try 
     {
-      const response = await fetch(`http://localhost:5227/Qna/add`, {
+      const baseUrl = import.meta.env.VITE_BASE_URL;
+      const response = await fetch(`${baseUrl}/Qna/add`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

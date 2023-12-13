@@ -7,7 +7,8 @@ export default function Forsale() {
   const fetchData = async () => {
     try 
     {
-      const response = await fetch(`http://localhost:5227/RealEstate/ForSale`, {
+      const baseUrl = import.meta.env.VITE_BASE_URL;
+      const response = await fetch(`${baseUrl}/RealEstate/ForSale`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

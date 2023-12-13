@@ -25,7 +25,8 @@ export default function Register(){
   const fetchData = async () => {
     try 
     {
-      const response = await fetch(`http://localhost:5227/Auth/register`, {
+      const baseUrl = import.meta.env.VITE_BASE_URL;
+      const response = await fetch(`${baseUrl}/Auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
