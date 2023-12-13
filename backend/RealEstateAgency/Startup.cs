@@ -54,11 +54,20 @@ public class Startup
             });
         });
 
-        services.AddDbContext<RealEstateAgencyContext>(options =>
-            options.UseSqlServer("Server=localhost,1433;Database=RealEstateAgency;User Id=sa;Password=!DbPassword12345;TrustServerCertificate=true;"));
-        services.AddDbContext<UsersContext>(options =>
-            options.UseSqlServer("Server=localhost,1433;Database=RealEstateAgency;User Id=sa;Password=!DbPassword12345;TrustServerCertificate=true;"));
-                // Configuration.GetConnectionString("realEstateAgencyDb")
+        if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+        {
+            string server = Environment.GetEnvironmentVariable("server");
+            string database = Environment.GetEnvironmentVariable("database");
+            string userId = Environment.GetEnvironmentVariable("userId");
+            string password = Environment.GetEnvironmentVariable("password");
+            
+            services.AddDbContext<RealEstateAgencyContext>(options =>
+                options.UseSqlServer($"server={server};Database={database};User Id={userId};Password={password};TrustServerCertificate=true;"));
+            services.AddDbContext<UsersContext>(options =>
+                options.UseSqlServer($"server={server};Database={database};User Id={userId};Password={password};TrustServerCertificate=true;"));
+        }
+        /*"Server=localhost,1433;Database=RealEstateAgency;User Id=sa;Password=!DbPassword12345;TrustServerCertificate=true;")*/
+
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {
@@ -78,17 +87,17 @@ public class Startup
             });
 
         services.AddIdentityCore<ApplicationUser>(options =>
-        {
-            options.SignIn.RequireConfirmedAccount = false;
-            options.User.RequireUniqueEmail = true;
-            options.Password.RequireDigit = false;
-            options.Password.RequiredLength = 6;
-            options.Password.RequireNonAlphanumeric = false;
-            options.Password.RequireUppercase = false;
-            options.Password.RequireLowercase = false;
-        })
-        .AddRoles<IdentityRole>()
-        .AddEntityFrameworkStores<UsersContext>();
+            {
+                options.SignIn.RequireConfirmedAccount = false;
+                options.User.RequireUniqueEmail = true;
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 6;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireLowercase = false;
+            })
+            .AddRoles<IdentityRole>()
+            .AddEntityFrameworkStores<UsersContext>();
 
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IQnaRepository, QnaRepository>();
@@ -110,7 +119,7 @@ public class Startup
         });
     }
 
-  public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
         if (env.IsDevelopment())
         {
@@ -123,14 +132,11 @@ public class Startup
         app.UseCors("AllowSpecificOrigins");
 
         app.UseRouting();
-        
+
         app.UseAuthentication();
         app.UseAuthorization();
 
-        app.UseEndpoints(endpoints =>
-        {
-            endpoints.MapControllers();
-        });
+        app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 
         app.UseExceptionHandler(exceptionHandlerApp =>
         {
