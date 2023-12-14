@@ -1,5 +1,6 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
+using System.Net.Http.Headers;
 using System.Text;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
@@ -54,21 +55,15 @@ public class AuthTest
 
         Assert.AreEqual(HttpStatusCode.Unauthorized, response.StatusCode);
     }
-
+    
     [TestMethod]
     public async Task PostLoginUsernameMatchesNameClaimInResponseJWT()
     {
         string userName = "admin";
-        string endpoint = "/Auth/login";
-        string jsonBody = JsonConvert.SerializeObject(new AuthRequest(userName, "123456"));
+        string password = "123456";
         var handler = new JwtSecurityTokenHandler();
-
-        var response = await SendPostRequestAsync(endpoint, jsonBody);
-        response.EnsureSuccessStatusCode();
-        var responseJson = await response.Content.ReadAsStringAsync();
-
-        AuthResponse authResponse = JsonConvert.DeserializeObject<AuthResponse>(responseJson);
-        var jwtSecurityToken = handler.ReadJwtToken(authResponse.Token);
+        var token = await Login(userName, password);
+        var jwtSecurityToken = handler.ReadJwtToken(token);
         var claims = jwtSecurityToken.Claims.ToList();
         foreach (var claim in claims)
         {
@@ -78,14 +73,66 @@ public class AuthTest
             }
         }
     }
+    
+    [TestMethod]
+    public async Task PostQnaWithAdminLoginResultsInCreatedStatusCode()
+    {
+        string userName = "admin";
+        string password = "123456";
+        var token = await Login(userName, password);
+        string addEndpoint = "/Qna/add";
+        string addJsonBody = JsonConvert.SerializeObject(new Qna(0, "Is it cloudy outside?", "No, it isn't."));
+ 
+        var response = await SendPostRequestAsync(addEndpoint, addJsonBody, token);
 
-    private async Task<HttpResponseMessage> SendPostRequestAsync(string endpoint, string jsonBody)
+        Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
+    }
+    
+    [TestMethod]
+    public async Task PostQnaWithUserLoginResultsInCreatedStatusCode()
+    {
+        string userName = "pelda";
+        string password = "123456";
+        var token = await Login(userName, password);
+        string addEndpoint = "/Qna/add";
+        string addJsonBody = JsonConvert.SerializeObject(new Qna(0, "Is it cloudy outside?", "No, it isn't."));
+ 
+        var response = await SendPostRequestAsync(addEndpoint, addJsonBody, token);
+
+        Assert.AreEqual(HttpStatusCode.Forbidden, response.StatusCode);
+    }
+
+    private async Task<HttpResponseMessage> SendPostRequestAsync(string endpoint, string jsonBody, string token = null)
     {
         using (HttpContent content = new StringContent(jsonBody, Encoding.UTF8, "application/json"))
         {
+            // Add the authorization header if a token is provided
+            if (!string.IsNullOrEmpty(token))
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            }
+
+            // Send the POST request
             HttpResponseMessage response = await client.PostAsync(endpoint, content);
+
+            // Reset the authorization header to avoid affecting other requests
+            client.DefaultRequestHeaders.Authorization = null;
+
             return response;
         }
+    }
+    
+    private async Task<string> Login(string userName, string password)
+    {
+        string endpoint = "/Auth/login";
+        string jsonBody = JsonConvert.SerializeObject(new AuthRequest(userName , password));
+        var response = await SendPostRequestAsync(endpoint, jsonBody);
+        response.EnsureSuccessStatusCode();
+        var responseJson = await response.Content.ReadAsStringAsync();
+
+        AuthResponse authResponse = JsonConvert.DeserializeObject<AuthResponse>(responseJson);
+
+        return authResponse.Token;
     }
 
     [TestCleanup]

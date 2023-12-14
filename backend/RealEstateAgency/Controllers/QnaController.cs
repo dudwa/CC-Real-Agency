@@ -36,7 +36,7 @@ public class QnaController : ControllerBase
         try
         {
             _qnaRepository.Add(qna);
-            return Ok();
+            return StatusCode(201);
         }
         catch (Exception e)
         {
